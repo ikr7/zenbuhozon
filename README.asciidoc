@@ -1,0 +1,54 @@
+= zenbuhozon =
+
+save browsing histories to Google Drive
+
+[[running-server]]
+== Running server ==
+
+Set environment variables:
+
+....
+export ZENBUHOZON_CREDENTIALS_PATH="path/to/credentials.json"
+export ZENBUHOZON_TOKEN_PATH="path/to/token.json"
+export ZENBUHOZON_FOLDER_ID="google_drive_folder_id_to_save_docs"
+export ZENBUHOZON_PORT="4242"
+....
+
+Start the server:
+
+....
+$ node server.js
+....
+
+Authorization link will be shown for the first run.
+
+[[setting-up-browser]]
+== Setting up browser ==
+
+. Install https://www.tampermonkey.net/[Tampermonkey]
+. Add following userscript and modify URL for your server
+
+....
+// ==UserScript==
+// @name         zenbuhozon
+// @version      0.0.1
+// @author       ikr7
+// @match        http://*/*
+// @match        https://*/*
+// @grant        GM_xmlhttpRequest
+// @connect      192.168.0.203
+// @noframes
+// ==/UserScript==
+
+(async function() {
+    'use strict';
+    const url = location.href;
+    const title = document.querySelector('title') ? document.querySelector('title').textContent : url;
+    GM_xmlhttpRequest({method: 'POST', url: 'http://192.168.0.203:4242/history', data: JSON.stringify({title: title, url: url})});
+})();
+....
+
+[[license]]
+== LICENSE ==
+
+Apache-2.0
