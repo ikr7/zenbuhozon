@@ -1,0 +1,16 @@
+{
+  "name": "zenbuhozon",
+  "version": "0.0.1",
+  "description": "save browsing histories to Google Drive",
+  "dependencies": {
+    "fastify": "^3.2.1",
+    "googleapis": "^59.0.0",
+    "mhtml2html": "^3.0.0",
+    "puppeteer": "^5.2.1"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "ikr7",
+  "license": "Apache-2.0"
+}
